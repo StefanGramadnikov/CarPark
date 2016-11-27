@@ -1,0 +1,37 @@
+#header {
+    font-family: 'Lato', sans-serif;
+    background: #333333;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    line-height: 1.5;
+}
+
+#header a {
+    text-decoration: none;
+    padding: 5px 20px;
+    color:white;
+}
+
+#menu-item {
+    display: none;
+    text-decoration: none;
+    padding: 5px 20px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    max-width: 160px;
+    position: relative;
+    text-transform: uppercase;
+    transition: ease-in .3s;
+}
+
+#menu-item:hover{
+    color: #00bbbb;
+}
+
+
+main > section {
+    display: none;
+    padding: 20px 5px;
+}
