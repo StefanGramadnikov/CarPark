@@ -1,6 +1,3 @@
-/**
- * Created by Tsenko Tsenov on 11/27/2016.
- */
 import React, {Component} from 'react';
 import observer from '../../services/Observer'
 import {register} from '../../controllers/UserController'
