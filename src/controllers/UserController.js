@@ -1,6 +1,4 @@
-/**
- * Created by Tsenko Tsenov on 12/4/2016.
- */
+
 import * as requester from '../services/AjaxService';
 import observer from '../services/Observer';
 
