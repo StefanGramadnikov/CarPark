@@ -22,7 +22,7 @@ function validate(model, value) {
         return validateNumberField(model, value, false);
     } else if (emailFields.includes(model)) {
         return validateEmailField(model, value);
-    } else if (model == 'year') {
+    } else if (model === 'year') {
         return validateYearField(model, value);
     }
 
@@ -32,11 +32,11 @@ function validateTextField(model, value) {
 
     let message = null;
 
-    if (value == '' || value === null) {
+    if (value === '' || value === null) {
         message = "The " + model + " can't be empty !";
-    } else if (value.length < minTextLength) {
+    } else if (value.length <= minTextLength) {
         message = "The " + model + " must be at least " + minTextLength + " characters long !";
-    } else if (value.length > maxTextLength) {
+    } else if (value.length >= maxTextLength) {
         message = "The " + model + " can't be more than " + maxTextLength + " characters long !";
     }
 
@@ -46,7 +46,7 @@ function validateTextField(model, value) {
 function validateNumberField(model, value, decimalField) {
     let message = null;
 
-    if (value == '' || value === null) {
+    if (value === '' || value === null) {
         message = "The " + model + " can't be empty !";
     } else if (value < 0) {
         message = "The " + model + " can't be a negative number !";
@@ -102,6 +102,22 @@ function buildMessage(model, errorMessage) {
         parentNode.removeChild(helpBlock);
         errorObj.removeClass('has-error');
     }
+
+    return errorMessage === null;
 }
 
-export {validate, buildMessage};
+function validateForm(formFields) {
+
+    for (let formField in formFields) {
+        console.log(formFields[formField]);
+        if (formFields[formField]) {
+            continue;
+        }
+
+        return false;
+    }
+
+    return true;
+}
+
+export {validate, buildMessage, validateForm};
