@@ -34,14 +34,10 @@ class LoginForm extends Component {
     }
 
     onLoginSuccess(response) {
-        if (response === true) {
-            // Navigate away from register page
+        if (response === true ) {
             this.context.router.push('/');
-            this.setState({ submitDisabled: false });
-        } else {
-            // Something went wrong, let the user try again
-            this.setState({ submitDisabled: true });
         }
+        this.setState({ submitDisabled: false });
         observer.onSessionUpdate()
     }
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import observer from '../../services/Observer'
 import * as validator from '../../services/ValidatorService';
 import {register} from '../../controllers/UserController'
+import * as notificator from '../../services/NotificationBarService'
 class RegistrationForm extends Component {
     constructor(props) {
         super(props);
@@ -30,11 +31,11 @@ class RegistrationForm extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
         if (this.state.password !== this.state.repeat) {
-            alert("Passwords don't match");
+            notificator.showNotification('message', "Passwords don't match");
             return;
         }
         if (this.state.password == '' || this.state.username == '') {
-            alert("Passwords don't match");
+            notificator.showNotification('message', "There are blank fields.");
             return;
         }
         this.setState({ submitDisabled: true });
@@ -42,14 +43,10 @@ class RegistrationForm extends Component {
     }
 
     onRegisterSuccess(response) {
-        if (response === true) {
-            // Navigate away from register page
+        if (response === true ) {
             this.context.router.push('/');
-            this.setState({ submitDisabled: false });
-        } else {
-            // Something went wrong, let the user try again
-            this.setState({ submitDisabled: true });
         }
+        this.setState({ submitDisabled: false });
         observer.onSessionUpdate()
     }
 
