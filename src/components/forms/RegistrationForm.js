@@ -27,6 +27,9 @@ class RegistrationForm extends Component {
         let newState = {};
         newState[event.target.name] = event.target.value;
         this.setState(newState)
+        let isFieldValid = validator.validate(event.target.name, event.target.value) === null;
+        this.state.validatedFormFields[event.target.name] = isFieldValid;
+        this.state.submitDisabled = !validator.validateForm(this.state.validatedFormFields);
     }
     onBlurHandler(event) {
         let errorMessage = validator.validate(event.target.name, event.target.value);
@@ -65,7 +68,6 @@ class RegistrationForm extends Component {
                         name="username"
                         value={this.state.username}
                         onBlur={this.onBlurHandler}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -77,7 +79,6 @@ class RegistrationForm extends Component {
                         name="password"
                         value={this.state.password}
                         onBlur={this.onBlurHandler}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -89,7 +90,6 @@ class RegistrationForm extends Component {
                         name="repeat"
                         value={this.state.repeat}
                         onBlur={this.onBlurHandler}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
