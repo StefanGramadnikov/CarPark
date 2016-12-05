@@ -7,9 +7,6 @@ import IndexPage from './components/views/HomePage';
 import LogoutPage from './components/views/LogoutPage';
 import CarAdForm from './components/forms/CarAdForm'
 
-//import IndexPage from './components/IndexPage';
-// import NotFoundPage from './components/NotFoundPage';
-
 const routes = (
     <Route path="/" component={Layout}>
         <IndexRoute component={IndexPage}/>
