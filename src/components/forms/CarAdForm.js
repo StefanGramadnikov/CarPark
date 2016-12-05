@@ -7,11 +7,13 @@ import * as validator from '../../services/ValidatorService';
 class RegistrationForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { make: '', model: '', year: '', price: '', picture: '', submitDisabled: true, validatedFormFields: {
+        this.state = { make: '', model: '', year: '', price: '', picture: '', title: '', description: '', submitDisabled: true, validatedFormFields: {
             make: false,
             model: false,
             year: false,
             price: false,
+            title: false,
+            description: false
         } };
         this.bindEventHandlers();
     }
@@ -45,8 +47,12 @@ class RegistrationForm extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
 
+        let formData = this.state;
+        delete formData.validatedFormFields;
+        delete formData.submitDisabled;
+
         this.setState({ submitDisabled: true });
-        addCar(this.state, this.onNewCarAdd);
+        addCar(formData, this.onNewCarAdd);
     }
 
     onNewCarAdd(response) {
@@ -57,13 +63,24 @@ class RegistrationForm extends Component {
         } else {
             // Something went wrong, let the user try again
             // Show flash message
-            this.setState({ submitDisabled: true });
+            this.setState({ submitDisabled: false });
         }
     }
 
     render() {
         return (
             <form className="" onSubmit={this.onSubmitHandler}>
+                <div id="title" className="form-group">
+                    <label>Title: </label>
+                    <input
+                        className="form-control"
+                        type="text"
+                        name="title"
+                        value={this.state.title}
+                        onBlur={this.onBlurHandler}
+                        onChange={this.onChangeHandler}
+                    />
+                </div>
                 <div id="make" className="form-group">
                     <label>Make: </label>
                     <input
@@ -93,6 +110,17 @@ class RegistrationForm extends Component {
                         type="text"
                         name="year"
                         value={this.state.year}
+                        onBlur={this.onBlurHandler}
+                        onChange={this.onChangeHandler}
+                    />
+                </div>
+                <div id="description" className="form-group">
+                    <label>Description: </label>
+                    <textarea
+                        className="form-control"
+                        type="text"
+                        name="description"
+                        value={this.state.description}
                         onBlur={this.onBlurHandler}
                         onChange={this.onChangeHandler}
                     />
