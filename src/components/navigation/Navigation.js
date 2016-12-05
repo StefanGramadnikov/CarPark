@@ -2,15 +2,14 @@
  * Created by Tsenko Tsenov on 11/27/2016.
  */
 import React, { Component } from 'react';
-import './Navigation.css';
 import DefaultNav from './DefaultNav.js';
 import LoggedInNav from './LoggedInNav.js';
 class Navigation extends Component{
     render() {
         if (sessionStorage.getItem('authToken')) {
-            return <LoggedInNav/>
+            return <LoggedInNav loggedIn={this.props.loggedIn} username={this.props.username}/>
         } else {
-            return <DefaultNav/>
+            return <DefaultNav loggedIn={this.props.loggedIn} username={this.props.username}/>
         }
     }
 }
