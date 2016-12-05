@@ -15,5 +15,8 @@ function addCar(formData, callback) {
         notificator.showError(err);
         callback(false);
     }
+}function loadAds(callback) {
+    //Load all ads from Kinvey
+    requester.get('appdata', 'ads', 'kinvey').then(callback);
 }
-export { addCar }
+export { addCar, loadAds }
