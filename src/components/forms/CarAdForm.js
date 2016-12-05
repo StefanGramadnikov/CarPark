@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, {Component} from 'react';
 import {addCar} from '../../controllers/CarAdController';
 import * as validator from '../../services/ValidatorService';
@@ -5,7 +7,12 @@ import * as validator from '../../services/ValidatorService';
 class RegistrationForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { make: '', model: '', year: '', price: '', picture: '', submitDisabled: false };
+        this.state = { make: '', model: '', year: '', price: '', picture: '', submitDisabled: true, validatedFormFields: {
+            make: false,
+            model: false,
+            year: false,
+            price: false,
+        } };
         this.bindEventHandlers();
     }
 
@@ -22,7 +29,12 @@ class RegistrationForm extends Component {
 
         let newState = {};
         newState[event.target.name] = event.target.value;
-        this.setState(newState)
+        this.setState(newState);
+
+        let isFieldValid = validator.validate(event.target.name, event.target.value) === null;
+        this.state.validatedFormFields[event.target.name] = isFieldValid;
+
+        this.state.submitDisabled = !validator.validateForm(this.state.validatedFormFields);
     }
 
     onBlurHandler(event) {
@@ -59,7 +71,6 @@ class RegistrationForm extends Component {
                         type="text"
                         name="make"
                         value={this.state.make}
-                        disabled={this.state.submitDisabled}
                         onBlur={this.onBlurHandler}
                         onChange={this.onChangeHandler}
                     />
@@ -71,7 +82,6 @@ class RegistrationForm extends Component {
                         type="text"
                         name="model"
                         value={this.state.model}
-                        disabled={this.state.submitDisabled}
                         onBlur={this.onBlurHandler}
                         onChange={this.onChangeHandler}
                     />
@@ -83,7 +93,6 @@ class RegistrationForm extends Component {
                         type="text"
                         name="year"
                         value={this.state.year}
-                        disabled={this.state.submitDisabled}
                         onBlur={this.onBlurHandler}
                         onChange={this.onChangeHandler}
                     />
@@ -98,7 +107,6 @@ class RegistrationForm extends Component {
                             name="price"
                             placeholder="Amount"
                             value={this.state.price}
-                            disabled={this.state.submitDisabled}
                             onBlur={this.onBlurHandler}
                             onChange={this.onChangeHandler}
                         />
@@ -110,7 +118,6 @@ class RegistrationForm extends Component {
                         type="file"
                         name="picture"
                         value={this.state.picture}
-                        disabled={this.state.submitDisabled}
                         onBlur={this.onBlurHandler}
                         onChange={this.onChangeHandler}
                     />
