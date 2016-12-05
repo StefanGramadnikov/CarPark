@@ -1,5 +1,6 @@
 
 import * as requester from '../services/AjaxService';
+import * as notificator from '../services/NotificationBarService';
 import observer from '../services/Observer';
 
 
@@ -23,11 +24,16 @@ function login(username, password, callback) {
     };
 
     requester.post('user', 'login', userData, 'basic')
-        .then((response) => { saveSession(response); callback(true)}).catch((err)=> callback(false));
+        .then((response) => loginSuccess(response)).catch((err)=> loginUnsuccess(err));
 
     function loginSuccess(userInfo) {
         saveSession(userInfo);
+        notificator.showNotificationBar('success', null, 'Login successful!')
         callback(true);
+    }
+    function loginUnsuccess(err) {
+        notificator.showNotificationBar('error', err)
+        callback(true)
     }
 }
 
@@ -39,10 +45,14 @@ function register(username, password, callback) {
     };
 
     requester.post('user', '', userData, 'basic')
-        .then(registerSuccess);
+        .then((response) => registerSuccess(response)).catch((err)=>registerUnsuccess(err));
 
     function registerSuccess(userInfo) {
         saveSession(userInfo);
+        notificator.showNotificationBar('success', null, 'Registration successful!')
+    }
+    function registerUnsuccess(err) {
+        notificator.showNotificationBar('error', err)
         callback(true);
     }
 }
@@ -54,6 +64,7 @@ function logout(callback) {
     function logoutSuccess(response) {
         sessionStorage.clear();
         observer.onSessionUpdate();
+        notificator.showNotificationBar('success', null, 'Logout successful!')
         callback(true);
     }
 }
