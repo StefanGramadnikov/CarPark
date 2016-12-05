@@ -7,7 +7,6 @@ export default class CatalogPage extends Component {
         super(props)
         this.state = {ads: []};
         this.onLoadSuccess = this.onLoadSuccess.bind(this)
-        //title, description, make, model, year, price, picture
     }
     componentDidMount(){
         loadAds(this.onLoadSuccess)
