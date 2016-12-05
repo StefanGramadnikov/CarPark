@@ -1,6 +1,4 @@
-/**
- * Created by Tsenko Tsenov on 12/4/2016.
- */
+
 import * as requester from '../services/AjaxService';
 import * as notificator from '../services/NotificationBarService';
 import observer from '../services/Observer';
