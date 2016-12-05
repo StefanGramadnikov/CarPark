@@ -18,4 +18,9 @@ function addCar(formData, callback) {
         callback(true);
     }
 }
-export { addCar }
+function loadAds(callback) {
+    //Load all ads from Kinvey
+    requester.get('appdata', 'ads', 'kinvey')
+        .then(callback);
+}
+export { addCar, loadAds }

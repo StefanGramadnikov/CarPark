@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-const textField = ['make', 'model', 'password', 'username'];
+const textField = ['make', 'model', 'password', 'username', 'repeat'];
 const wholeNumberFields = [];
 const numberFields = ['price'];
 const emailFields = ['email'];

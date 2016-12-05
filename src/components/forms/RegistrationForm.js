@@ -6,7 +6,11 @@ import * as notificator from '../../services/NotificationBarService'
 class RegistrationForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { username: '', password: '', repeat: '', submitDisabled: false };
+        this.state = { username: '', password: '', repeat: '', submitDisabled: true, validatedFormFields: {
+            username: false,
+            password: false,
+            repeat: false,
+        }};
         this.bindEventHandlers();
     }
 
@@ -52,6 +56,7 @@ class RegistrationForm extends Component {
 
     render() {
         return (
+            <div className="container">
             <form onSubmit={this.onSubmitHandler}>
                 <div id ='username' className="form-group">
                     <label>Username:</label>
@@ -61,7 +66,6 @@ class RegistrationForm extends Component {
                         name="username"
                         value={this.state.username}
                         onBlur={this.onBlurHandler}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -73,7 +77,6 @@ class RegistrationForm extends Component {
                         name="password"
                         value={this.state.password}
                         onBlur={this.onBlurHandler}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -85,12 +88,12 @@ class RegistrationForm extends Component {
                         name="repeat"
                         value={this.state.repeat}
                         onBlur={this.onBlurHandler}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
                 <input className="btn btn-default" type="submit" value="Register" disabled={this.state.submitDisabled}/>
             </form>
+            </div>
         );
     }
 }

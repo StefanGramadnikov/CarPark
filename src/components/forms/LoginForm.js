@@ -5,7 +5,7 @@ import {login} from '../../controllers/UserController'
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { username: '', password: '', submitDisabled: false };
+        this.state = { username: '', password: '', submitDisabled: true };
         this.bindEventHandlers();
     }
 
@@ -52,7 +52,6 @@ class LoginForm extends Component {
                         name="username"
                         onBlur={this.onBlurHandler}
                         value={this.state.username}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -64,7 +63,6 @@ class LoginForm extends Component {
                         name="password"
                         onBlur={this.onBlurHandler}
                         value={this.state.password}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -73,7 +71,9 @@ class LoginForm extends Component {
         );
     }
 }
+
 LoginForm.contextTypes = {
     router: React.PropTypes.object
 };
+
 export default LoginForm;
