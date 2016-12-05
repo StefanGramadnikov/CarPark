@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, {Component} from 'react';
 import {addCar} from '../../controllers/CarAdController';
 import * as validator from '../../services/ValidatorService';
@@ -10,7 +12,6 @@ class RegistrationForm extends Component {
             model: false,
             year: false,
             price: false,
-            picture: false
         } };
         this.bindEventHandlers();
     }
@@ -26,19 +27,19 @@ class RegistrationForm extends Component {
     onChangeHandler(event) {
         event.preventDefault();
 
-        console.log(this.state.validatedFormFields);
-        (validator.validateForm(this.state.validatedFormFields));
-
         let newState = {};
         newState[event.target.name] = event.target.value;
-        this.setState(newState)
+        this.setState(newState);
+
+        let isFieldValid = validator.validate(event.target.name, event.target.value) === null;
+        this.state.validatedFormFields[event.target.name] = isFieldValid;
+
+        this.state.submitDisabled = !validator.validateForm(this.state.validatedFormFields);
     }
 
     onBlurHandler(event) {
         let errorMessage = validator.validate(event.target.name, event.target.value);
-        let isValid = validator.buildMessage(event.target.name, errorMessage);
-
-        this.state.validatedFormFields[event.target.name] = isValid;
+        validator.buildMessage(event.target.name, errorMessage);
     }
 
     onSubmitHandler(event) {

@@ -1,8 +1,5 @@
-/**
- * Created by Tsenko Tsenov on 11/27/2016.
- */
+
 import React from 'react';
-import { Link } from 'react-router';
 import Navigation from './navigation/Navigation.js';
 import observer from '../services/Observer'
 

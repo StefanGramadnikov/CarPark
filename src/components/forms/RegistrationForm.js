@@ -38,7 +38,7 @@ class RegistrationForm extends Component {
             notificator.showNotification('message', "Passwords don't match");
             return;
         }
-        if (this.state.password == '' || this.state.username == '') {
+        if (this.state.password === '' || this.state.username === '') {
             notificator.showNotification('message', "There are blank fields.");
             return;
         }
@@ -56,9 +56,8 @@ class RegistrationForm extends Component {
 
     render() {
         return (
-            <div className="container">
             <form onSubmit={this.onSubmitHandler}>
-                <div id ='username' className="form-group">
+                <div id='username' className="form-group">
                     <label>Username:</label>
                     <input
                         className="form-control"
@@ -66,10 +65,11 @@ class RegistrationForm extends Component {
                         name="username"
                         value={this.state.username}
                         onBlur={this.onBlurHandler}
+                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
-                <div id ='password' className="form-group">
+                <div id='password' className="form-group">
                     <label>Password:</label>
                     <input
                         className="form-control"
@@ -77,10 +77,11 @@ class RegistrationForm extends Component {
                         name="password"
                         value={this.state.password}
                         onBlur={this.onBlurHandler}
+                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
-                <div id ='repeat' className="form-group">
+                <div id='repeat' className="form-group">
                     <label>Repeat Password:</label>
                     <input
                         className="form-control"
@@ -88,12 +89,12 @@ class RegistrationForm extends Component {
                         name="repeat"
                         value={this.state.repeat}
                         onBlur={this.onBlurHandler}
+                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
                 <input className="btn btn-default" type="submit" value="Register" disabled={this.state.submitDisabled}/>
             </form>
-            </div>
         );
     }
 }
