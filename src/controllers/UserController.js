@@ -1,7 +1,6 @@
-
 import * as requester from '../services/AjaxService';
+import * as notificator from '../services/NotificationBarService';
 import observer from '../services/Observer';
-
 
 function saveSession(userInfo) {
     let userAuth = userInfo._kmd.authtoken;
@@ -15,7 +14,7 @@ function saveSession(userInfo) {
     observer.onSessionUpdate();
 }
 
-// user/login
+//login
 function login(username, password, callback) {
     let userData = {
         username,
@@ -23,15 +22,20 @@ function login(username, password, callback) {
     };
 
     requester.post('user', 'login', userData, 'basic')
-        .then((response) => { saveSession(response); callback(true)}).catch((err)=> callback(false));
+        .then((response) => loginSuccess(response)).catch((err)=> loginUnsuccess(err));
 
     function loginSuccess(userInfo) {
         saveSession(userInfo);
+        notificator.showNotification('success', 'Login successful!')
         callback(true);
+    }
+    function loginUnsuccess(err) {
+        notificator.showError(err)
+        callback(false);
     }
 }
 
-// user/register
+//register
 function register(username, password, callback) {
     let userData = {
         username,
@@ -39,13 +43,19 @@ function register(username, password, callback) {
     };
 
     requester.post('user', '', userData, 'basic')
-        .then(registerSuccess);
+        .then((response) => registerSuccess(response)).catch((err)=>registerUnsuccess(err));
 
     function registerSuccess(userInfo) {
         saveSession(userInfo);
+        notificator.showNotification('success', 'Registration successful!')
         callback(true);
     }
+    function registerUnsuccess(err) {
+        notificator.showError(err)
+        callback(false);
+    }
 }
+//logout
 function logout(callback) {
     requester.post('user', '_logout', null, 'kinvey')
         .then(logoutSuccess);
@@ -54,7 +64,9 @@ function logout(callback) {
     function logoutSuccess(response) {
         sessionStorage.clear();
         observer.onSessionUpdate();
+        notificator.showNotification('success', 'Logout successful!')
         callback(true);
     }
 }
+
 export {login, register, logout }

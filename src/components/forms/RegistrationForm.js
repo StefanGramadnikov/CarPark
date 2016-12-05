@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import observer from '../../services/Observer'
+import * as validator from '../../services/ValidatorService';
 import {register} from '../../controllers/UserController'
+import * as notificator from '../../services/NotificationBarService'
 class RegistrationForm extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +15,7 @@ class RegistrationForm extends Component {
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.onRegisterSuccess = this.onRegisterSuccess.bind(this);
+        this.onBlurHandler = this.onBlurHandler.bind(this);
     }
 
     onChangeHandler(event) {
@@ -21,11 +24,18 @@ class RegistrationForm extends Component {
         newState[event.target.name] = event.target.value;
         this.setState(newState)
     }
-
+    onBlurHandler(event) {
+        let errorMessage = validator.validate(event.target.name, event.target.value);
+        validator.buildMessage(event.target.name, errorMessage);
+    }
     onSubmitHandler(event) {
         event.preventDefault();
         if (this.state.password !== this.state.repeat) {
-            alert("Passwords don't match");
+            notificator.showNotification('message', "Passwords don't match");
+            return;
+        }
+        if (this.state.password == '' || this.state.username == '') {
+            notificator.showNotification('message', "There are blank fields.");
             return;
         }
         this.setState({ submitDisabled: true });
@@ -33,49 +43,48 @@ class RegistrationForm extends Component {
     }
 
     onRegisterSuccess(response) {
-        if (response === true) {
-            // Navigate away from register page
+        if (response === true ) {
             this.context.router.push('/');
-            this.setState({ submitDisabled: false });
-        } else {
-            // Something went wrong, let the user try again
-            this.setState({ submitDisabled: true });
         }
+        this.setState({ submitDisabled: false });
         observer.onSessionUpdate()
     }
 
     render() {
         return (
             <form onSubmit={this.onSubmitHandler}>
-                <div className="form-group">
+                <div id ='username' className="form-group">
                     <label>Username:</label>
                     <input
                         className="form-control"
                         type="text"
                         name="username"
                         value={this.state.username}
+                        onBlur={this.onBlurHandler}
                         disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
-                <div className="form-group">
+                <div id ='password' className="form-group">
                     <label>Password:</label>
                     <input
                         className="form-control"
                         type="password"
                         name="password"
                         value={this.state.password}
+                        onBlur={this.onBlurHandler}
                         disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
-                <div className="form-group">
+                <div id ='repeat' className="form-group">
                     <label>Repeat Password:</label>
                     <input
                         className="form-control"
                         type="password"
                         name="repeat"
                         value={this.state.repeat}
+                        onBlur={this.onBlurHandler}
                         disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
