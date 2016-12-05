@@ -1,7 +1,6 @@
 /* eslint-disable */
 import $ from 'jquery';
-
-const textField = ['make', 'model', 'password', 'username', 'title'];
+const textField = ['make', 'model', 'password', 'username', 'title', 'repeat'];
 const wholeNumberFields = [];
 const numberFields = ['price'];
 const emailFields = ['email'];

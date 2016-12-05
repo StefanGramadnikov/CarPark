@@ -5,7 +5,9 @@ import {login} from '../../controllers/UserController'
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { username: '', password: '', submitDisabled: false };
+        this.state = { username: '', password: '', submitDisabled: true, validatedFormFields: {
+            username: false,
+            password: false} }
         this.bindEventHandlers();
     }
 
@@ -25,6 +27,10 @@ class LoginForm extends Component {
         let newState = {};
         newState[event.target.name] = event.target.value;
         this.setState(newState)
+        let isFieldValid = validator.validate(event.target.name, event.target.value) === null;
+        this.state.validatedFormFields[event.target.name] = isFieldValid;
+
+        this.state.submitDisabled = !validator.validateForm(this.state.validatedFormFields);
     }
 
     onSubmitHandler(event) {
@@ -52,7 +58,6 @@ class LoginForm extends Component {
                         name="username"
                         onBlur={this.onBlurHandler}
                         value={this.state.username}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -64,7 +69,6 @@ class LoginForm extends Component {
                         name="password"
                         onBlur={this.onBlurHandler}
                         value={this.state.password}
-                        disabled={this.state.submitDisabled}
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -73,7 +77,9 @@ class LoginForm extends Component {
         );
     }
 }
+
 LoginForm.contextTypes = {
     router: React.PropTypes.object
 };
+
 export default LoginForm;
