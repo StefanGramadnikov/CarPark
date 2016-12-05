@@ -1,9 +1,12 @@
+/* eslint-disable */
 import $ from 'jquery';
 
 const textField = ['make', 'model', 'password', 'username'];
 const wholeNumberFields = [];
 const numberFields = ['price'];
 const emailFields = ['email'];
+
+const nonValidatedFields = ['picture'];
 
 const minTextLength = 3;
 const maxTextLength = 30;
@@ -24,6 +27,8 @@ function validate(model, value) {
         return validateEmailField(model, value);
     } else if (model === 'year') {
         return validateYearField(model, value);
+    } else if (nonValidatedFields.includes(model)) {
+        return null;
     }
 
 }
@@ -34,9 +39,9 @@ function validateTextField(model, value) {
 
     if (value === '' || value === null) {
         message = "The " + model + " can't be empty !";
-    } else if (value.length <= minTextLength) {
+    } else if (value.length < minTextLength) {
         message = "The " + model + " must be at least " + minTextLength + " characters long !";
-    } else if (value.length >= maxTextLength) {
+    } else if (value.length > maxTextLength) {
         message = "The " + model + " can't be more than " + maxTextLength + " characters long !";
     }
 
@@ -102,19 +107,14 @@ function buildMessage(model, errorMessage) {
         parentNode.removeChild(helpBlock);
         errorObj.removeClass('has-error');
     }
-
-    return errorMessage === null;
 }
 
 function validateForm(formFields) {
 
     for (let formField in formFields) {
-        console.log(formFields[formField]);
-        if (formFields[formField]) {
-            continue;
+        if (formFields[formField] === false) {
+            return false;
         }
-
-        return false;
     }
 
     return true;

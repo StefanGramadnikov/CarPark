@@ -30,6 +30,8 @@ function showNotification(type, description) {
                 successDiv.remove()
             }, 7500);
             break;
+        default:
+            return;
     }
 }
 export {showNotification, showError }

@@ -34,7 +34,7 @@ class RegistrationForm extends Component {
             notificator.showNotification('message', "Passwords don't match");
             return;
         }
-        if (this.state.password == '' || this.state.username == '') {
+        if (this.state.password === '' || this.state.username === '') {
             notificator.showNotification('message', "There are blank fields.");
             return;
         }
@@ -53,7 +53,7 @@ class RegistrationForm extends Component {
     render() {
         return (
             <form onSubmit={this.onSubmitHandler}>
-                <div id ='username' className="form-group">
+                <div id='username' className="form-group">
                     <label>Username:</label>
                     <input
                         className="form-control"
@@ -65,7 +65,7 @@ class RegistrationForm extends Component {
                         onChange={this.onChangeHandler}
                     />
                 </div>
-                <div id ='password' className="form-group">
+                <div id='password' className="form-group">
                     <label>Password:</label>
                     <input
                         className="form-control"
@@ -77,7 +77,7 @@ class RegistrationForm extends Component {
                         onChange={this.onChangeHandler}
                     />
                 </div>
-                <div id ='repeat' className="form-group">
+                <div id='repeat' className="form-group">
                     <label>Repeat Password:</label>
                     <input
                         className="form-control"
