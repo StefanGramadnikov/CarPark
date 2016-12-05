@@ -1,7 +1,6 @@
 /* eslint-disable */
 import $ from 'jquery';
-
-const textField = ['make', 'model', 'password', 'username', 'repeat'];
+const textField = ['make', 'model', 'password', 'username', 'title', 'repeat'];
 const wholeNumberFields = [];
 const numberFields = ['price'];
 const emailFields = ['email'];
@@ -10,6 +9,7 @@ const nonValidatedFields = ['picture'];
 
 const minTextLength = 3;
 const maxTextLength = 30;
+const maxTextAreaLength = 1000;
 const maxNumberLength = 1000000000;
 const decimalNumbersRegex = /^[1-9]\d*(\.\d+)?$/;
 const wholeNumbersRegex = /^[1-9]\d*$/;
@@ -29,6 +29,8 @@ function validate(model, value) {
         return validateYearField(model, value);
     } else if (nonValidatedFields.includes(model)) {
         return null;
+    } else if (model === 'description') {
+        return validateTextAreaField(model, value);
     }
 
 }
@@ -43,6 +45,21 @@ function validateTextField(model, value) {
         message = "The " + model + " must be at least " + minTextLength + " characters long !";
     } else if (value.length > maxTextLength) {
         message = "The " + model + " can't be more than " + maxTextLength + " characters long !";
+    }
+
+    return message;
+}
+
+function validateTextAreaField(model, value) {
+
+    let message = null;
+
+    if (value === '' || value === null) {
+        message = "The " + model + " can't be empty !";
+    } else if (value.length < minTextLength) {
+        message = "The " + model + " must be at least " + minTextLength + " characters long !";
+    } else if (value.length > maxTextAreaLength) {
+        message = "The " + model + " can't be more than " + maxTextAreaLength + " characters long !";
     }
 
     return message;
