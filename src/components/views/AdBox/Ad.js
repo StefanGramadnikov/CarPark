@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Ad.css'
+import {Link} from 'react-router';
 export default class Ad extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +20,7 @@ export default class Ad extends Component {
         return (
             <div className="col-sm-6 col-md-4 ad">
                 <div className="thumbnail">
-                    <img src={this.state.picture} alt="picture"/>
+                    <img className="img" src={this.state.picture} alt="picture"/>
                         <div className="caption">
                             <h3>{this.props.title}</h3>
                             <p>{this.state.desc}</p>
