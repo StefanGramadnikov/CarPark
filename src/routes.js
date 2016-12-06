@@ -7,6 +7,7 @@ import IndexPage from './components/views/HomePage';
 import LogoutPage from './components/views/LogoutPage';
 import AdsPage from './components/views/AdsPage';
 import CarAdForm from './components/forms/CarAdForm';
+import ContactPage from './components/views/ContactPage/ContactPage';
 import MyAdsPage from './components/views/MyAdsPage';
 import SingleAdPage from './components/views/SingleAdPage';
 import NotFoundPage from './components/views/NotFoundPage/NotFoundPage';
@@ -22,6 +23,7 @@ const routes = (
         <Route path="ads/create" component={CarAdForm}/>
         <Route path="ads/:adId" component={SingleAdPage}/>
         <Route path='edit/:adId' component={CarAdForm}/>
+        <Route path='contacts' component={ContactPage}/>
         <Route path="*" component={NotFoundPage}/>
     </Route>
 );
