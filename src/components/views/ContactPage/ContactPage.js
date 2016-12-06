@@ -12,6 +12,9 @@ export default class ContactPage extends Component {
                             <h1 className="h2">
                                 Contacts
                             </h1>
+                            <p>
+                                Contact us and you might just get the deal of your life.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -28,12 +31,12 @@ export default class ContactPage extends Component {
                             <p className="info">nepr@6tama.il</p>
                             <br />
                             <br />
-                            <h3 ><i className="fa fa-user fa-1x"></i> The Boss:</h3>
-                            <p>Pesho Goshov</p>
+                            <h3 ><i className="fa fa-user fa-1x"></i> The phne of the boss:</h3>
+                            <p>Pesho Goshov: 088 888 888</p>
                             <br/>
                             <br/>
-                            <h3><i className="fa fa-yelp fa-1x" ></i>Website for support</h3>
-                            <p ><a href="http://m.memegen.com/pizxiv.jpg">Support</a></p>
+                            <h3><i className="fa fa-yelp fa-1x" ></i>Support</h3>
+                            <p ><a href="http://m.memegen.com/pizxiv.jpg">I'm feeling lucky</a></p>
                         </div>
                     </div>
                     <div className="col-sm-6">
