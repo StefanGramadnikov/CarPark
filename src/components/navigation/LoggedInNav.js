@@ -15,6 +15,7 @@ class LoggedInNav extends Component{
                     <li><Link to="/ads">Ads</Link></li>
                     <li><Link to="/myAds">My ads</Link></li>
                     <li><Link to="/ads/create">New ad</Link></li>
+                    <li><Link to="/contacts">Contact</Link></li>
                     <li><Link to="/logout">Logout</Link></li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
