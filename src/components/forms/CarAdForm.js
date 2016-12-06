@@ -24,6 +24,7 @@ class RegistrationForm extends Component {
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.onNewCarAdd = this.onNewCarAdd.bind(this);
         this.onBlurHandler = this.onBlurHandler.bind(this);
+        this.onPictureSelect = this.onPictureSelect.bind(this);
     }
 
     onChangeHandler(event) {
@@ -37,6 +38,12 @@ class RegistrationForm extends Component {
         this.state.validatedFormFields[event.target.name] = isFieldValid;
 
         this.state.submitDisabled = !validator.validateForm(this.state.validatedFormFields);
+    }
+
+    onPictureSelect(event) {
+        let newState = {};
+        newState[event.target.name] = event.target.files[0];
+        this.setState(newState);
     }
 
     onBlurHandler(event) {
@@ -145,9 +152,8 @@ class RegistrationForm extends Component {
                     <input
                         type="file"
                         name="picture"
-                        value={this.state.picture}
                         onBlur={this.onBlurHandler}
-                        onChange={this.onChangeHandler}
+                        onChange={this.onPictureSelect}
                     />
                     <p className="help-block">Choose a file from your PC</p>
                 </div>

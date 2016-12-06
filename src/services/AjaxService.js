@@ -52,4 +52,37 @@ function update(module, uri, data, auth) {
     return $.ajax(request);
 }
 
-export {get, post, update};
+function uploadFileToKinvey(data) {
+    const kinveyLoginUrl = kinveyBaseUrl + "blob/" + kinveyAppKey;
+    const kinveyAuthHeaders = makeAuth('kinvey');
+
+    console.log(kinveyAuthHeaders);
+
+    let requestHeaders = {
+        'Authorization': "Basic " + btoa("Go6o:qweqweqwe"),
+        'Content-Type': data.mimeType,
+        'X-Kinvey-Content-Type': data.mimeType
+    };
+
+    let request = {
+        method: 'POST',
+        url: kinveyLoginUrl,
+        headers: requestHeaders,
+        data: JSON.stringify(data)
+    };
+
+    $.ajax(request).then(
+        function (response) {
+            console.log(response);
+        }).catch(
+        function (error) {
+            console.log(error);
+        }
+    );
+}
+
+function uploadFileToGoogle(data) {
+    console.log(data);
+}
+
+export {get, post, update, uploadFileToKinvey, uploadFileToGoogle};
