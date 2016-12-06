@@ -33,6 +33,7 @@ export default class MyAdsPage extends Component {
                                          description={ad.description}
                                          model={ad.model} year={ad.year}
                                          price={ad.price} adId={ad._id}
+                                         picture={ad.picture}
                                     />
                         }
                     })
