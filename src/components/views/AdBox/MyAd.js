@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import './Ad.css'
 import {Link} from 'react-router'
+import * as carAdController from '../../../controllers/CarAdController';
+
 export default class MyAd extends Component {
     constructor(props) {
         super(props);
         this.state = {desc: this.props.description, picture: this.props.picture};
         this.generateShortDescription(this.props.description);
+        this.deleteAd = this.deleteAd.bind(this);
+        this.onDeleteSuccess = this.onDeleteSuccess.bind(this);
         this.generateDefaultPicutre();
     }
     generateDefaultPicutre(){
@@ -13,9 +17,20 @@ export default class MyAd extends Component {
             this.state.picture = 'http://www.usa.philips.com/c-dam/b2c/category-pages/lighting/car-lights/master/footer/nafta-car.png'
         }
     }
-    generateShortDescription(asd){
-        this.state.desc = asd.substr(0, 100) + '...';
+    generateShortDescription(description){
+        this.state.desc = description.substr(0, 100) + '...';
     }
+
+    deleteAd(id) {
+        carAdController.deleteAd(id, this.onDeleteSuccess);
+    }
+
+    onDeleteSuccess(response) {
+        if (response === true) {
+            this.context.router.push('/ads');
+        }
+    }
+
     render() {
         return (
             <div className="col-sm-6 col-md-4 ad">
@@ -27,6 +42,7 @@ export default class MyAd extends Component {
                         <p>
                             <Link to={"/ads/" + this.props.adId} className="btn btn-primary">Preview</Link>
                             <Link to={"/edit/" + this.props.adId} className="btn btn-default">Edit</Link>
+                            <button className="btn btn-danger" onClick={() => this.deleteAd(this.props.adId)}>Delete ad</button>
                         </p>
                     </div>
                 </div>
@@ -34,3 +50,6 @@ export default class MyAd extends Component {
         );
     }
 }
+MyAd.contextTypes = {
+    router: React.PropTypes.object
+};

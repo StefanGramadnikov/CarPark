@@ -55,6 +55,19 @@ function update(module, uri, data, auth) {
     return $.ajax(request);
 }
 
+function deleteRequest(module, uri, auth) {
+    const kinveyLoginUrl = kinveyBaseUrl + module + "/" + kinveyAppKey + "/" + uri;
+    const kinveyAuthHeaders = makeAuth(auth);
+
+    let request = {
+        method: "DELETE",
+        url: kinveyLoginUrl,
+        headers: kinveyAuthHeaders,
+    };
+
+    return $.ajax(request);
+}
+
 // function uploadFileToKinvey(data) {
 //     const kinveyLoginUrl = kinveyBaseUrl + "blob/" + kinveyAppKey;
 //     const kinveyAuthHeaders = makeAuth('kinvey');
@@ -93,4 +106,4 @@ function update(module, uri, data, auth) {
 //     return $.ajax(request);
 // }
 
-export {get, post, update};
+export {get, post, update, deleteRequest};

@@ -42,6 +42,12 @@ function updateCar(formData, callback) {
         .then((response) => onRequestSuccess('Car ad updated', callback)).catch((err)=>onRequestError(err, callback));
 }
 
+function deleteAd(id, callback) {
+    console.log(id);
+    requester.deleteRequest('appdata', 'ads/' + id, 'kinvey')
+        .then((response) => onRequestSuccess('Car ad deleted successfully', callback)).catch((err)=>onRequestError(err));
+}
+
 function onRequestSuccess(message, callback){
     notificator.showNotification('success', message);
     callback(true);
@@ -53,12 +59,12 @@ function onRequestError(message, callback) {
 }
 
 function loadAds(callback) {
-    //Load all ads from Kinvey
     requester.get('appdata', 'ads', 'kinvey').then(callback);
 }
 
 function loadAd(adId, callback) {
-    requester.get('appdata', 'ads/' + adId, 'kinvey').then(callback).catch();
+    requester.get('appdata', 'ads/' + adId, 'kinvey').then(callback)
+        .catch((err) => onRequestError(err));
 }
 
 function buildObjectForPrepopulation(data) {
@@ -77,4 +83,4 @@ function buildObjectForPrepopulation(data) {
 
 }
 
-export {addCar, loadAds, loadAd, buildObjectForPrepopulation, updateCar}
+export {addCar, loadAds, loadAd, buildObjectForPrepopulation, updateCar, deleteAd}
