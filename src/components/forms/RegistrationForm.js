@@ -23,10 +23,10 @@ class RegistrationForm extends Component {
     }
 
     onChangeHandler(event) {
-        event.preventDefault()
+        event.preventDefault();
         let newState = {};
         newState[event.target.name] = event.target.value;
-        this.setState(newState)
+        this.setState(newState);
         let isFieldValid = validator.validate(event.target.name, event.target.value) === null;
         this.state.validatedFormFields[event.target.name] = isFieldValid;
         this.state.submitDisabled = !validator.validateForm(this.state.validatedFormFields);

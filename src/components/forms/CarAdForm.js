@@ -167,14 +167,15 @@ class CarAdForm extends Component {
                     </div>
                 </div>
                 <div id="picture" className="form-group">
-                    <label >Picture: </label>
+                    <label>Picture: </label>
                     <input
-                        type="file"
+                        className="form-control"
+                        type="text"
                         name="picture"
+                        value={this.state.picture}
                         onBlur={this.onBlurHandler}
-                        onChange={this.onPictureSelect}
+                        onChange={this.onChangeHandler}
                     />
-                    <p className="help-block">Choose a file from your PC</p>
                 </div>
                 <input className="btn btn-default" type="submit" value="Submit" disabled={this.state.submitDisabled}/>
             </form>

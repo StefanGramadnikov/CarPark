@@ -2,40 +2,39 @@ import * as requester from '../services/AjaxService';
 import * as notificator from '../services/NotificationBarService';
 
 function addCar(formData, callback) {
-
-    let saveAdWithoutPicture = true;
-    if ('picture' in formData && formData['picture'] !== '') {
-
-        saveAdWithoutPicture = false;
-        let picture = formData['picture'];
-
-        let metaData = {
-            '_filename': picture.name,
-            'size': picture.size,
-            'type': picture.type
-        };
-
-        let kinveyResponse = requester.uploadFileToKinvey(metaData).then(
-            function (response) {
-                console.log(response);
-                formData.picture = response._id;
-                requester.post('appdata', 'ads', formData, 'kinvey')
-                    .then((response) => onRequestSuccess('Image uploaded to kinvey',response)).catch((err)=>onRequestError(err, callback));
-            }
-        );
-        let googleResponse = kinveyResponse
-            .then((response) => requester.uploadFileToGoogle(response).catch((err) => onRequestError(err)));
-
-        googleResponse.then((response) => onRequestSuccess('Image uploaded', response))
-            .catch((err)=>onRequestError(err));
-
-    }
-
-    if(saveAdWithoutPicture) {
-        delete formData.picture;
+    //
+    // let saveAdWithoutPicture = true;
+    // if ('picture' in formData && formData['picture'] !== '') {
+    //
+    //     saveAdWithoutPicture = false;
+    //     let picture = formData['picture'];
+    //
+    //     let metaData = {
+    //         '_filename': picture.name,
+    //         'size': picture.size,
+    //         'type': picture.type
+    //     };
+    //
+    //     let kinveyResponse = requester.uploadFileToKinvey(metaData).then(
+    //         function (response) {
+    //             console.log(response);
+    //             formData.picture = response._id;
+    //             requester.post('appdata', 'ads', formData, 'kinvey')
+    //                 .then((response) => onRequestSuccess('Image uploaded to kinvey',response)).catch((err)=>onRequestError(err, callback));
+    //         }
+    //     );
+    //     let googleResponse = kinveyResponse
+    //         .then((response) => requester.uploadFileToGoogle(response).catch((err) => onRequestError(err)));
+    //
+    //     googleResponse.then((response) => onRequestSuccess('Image uploaded', response))
+    //         .catch((err)=>onRequestError(err));
+    //
+    // }
+    //
+    // if(saveAdWithoutPicture) {
+    //     delete formData.picture;
         requester.post('appdata', 'ads', formData, 'kinvey')
             .then((response) => onRequestSuccess('Car ad created', callback)).catch((err)=>onRequestError(err, callback));
-    }
 }
 
 function updateCar(formData, callback) {
