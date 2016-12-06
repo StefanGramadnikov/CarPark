@@ -23,4 +23,25 @@ function authenticate() {
         redirect().then(showMessage)
     }
 }
-export {authenticate}
+function redirectIfRegistered() {
+    if(sessionStorage.getItem('authToken')){
+        function redirect() {
+            let promise = new Promise(function (resolve, reject) {
+                browserHistory.push('/ads')
+                resolve(redirect);
+            });
+
+            return promise;
+        }
+        function showMessage() {
+            let promise = new Promise(function (resolve, reject) {
+                notificator.showNotification('message', 'You are already registered and logged in.')
+                resolve(showMessage);
+            });
+
+            return promise;
+        }
+        redirect().then(showMessage)
+    }
+}
+export {authenticate, redirectIfRegistered}

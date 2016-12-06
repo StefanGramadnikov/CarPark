@@ -3,6 +3,7 @@ import observer from '../../services/Observer'
 import * as validator from '../../services/ValidatorService';
 import {register} from '../../controllers/UserController'
 import * as notificator from '../../services/NotificationBarService'
+import * as authenticator from '../../services/AuthValidationService'
 class RegistrationForm extends Component {
     constructor(props) {
         super(props);
@@ -58,6 +59,7 @@ class RegistrationForm extends Component {
     }
 
     render() {
+        authenticator.redirectIfRegistered();
         return (
             <form onSubmit={this.onSubmitHandler} className="text-left col-md-5 col-md-offset-4">
                 <div id='username' className="form-group">
