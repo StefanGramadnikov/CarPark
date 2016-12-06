@@ -59,7 +59,7 @@ class RegistrationForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmitHandler}>
+            <form onSubmit={this.onSubmitHandler} className="text-left col-md-5 col-md-offset-4">
                 <div id='username' className="form-group">
                     <label>Username:</label>
                     <input
