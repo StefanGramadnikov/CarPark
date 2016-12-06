@@ -28,11 +28,6 @@ export default class Layout extends React.Component {
                         <Navigation loggedIn={this.state.loggedIn} username={this.state.username} />
                 </nav>
                 <div className="container">{this.props.children}</div>
-                {/*<footer className="footer">*/}
-                    {/*<div className="container">*/}
-                        {/*<p className="text-muted">This is our app footer.(C)</p>*/}
-                    {/*</div>*/}
-                {/*</footer>*/}
             </div>
         );
     }
