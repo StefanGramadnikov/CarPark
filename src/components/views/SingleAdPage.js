@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {loadAd} from '../../controllers/CarAdController';
-export default class AdsPage extends Component {
+import {Link} from 'react-router';
+
+export default class SingleAdPage extends Component {
     constructor(props){
         super(props);
         this.state = {ad: ''};
@@ -38,6 +40,7 @@ export default class AdsPage extends Component {
                         <span className="glyphicon glyphicon-star"/>
                         <span className="glyphicon glyphicon-star"/>
                     </p>
+                    <Link to={"/contacts"} className="btn btn-success">Contact us</Link>
                 </div>
             </div>
         );

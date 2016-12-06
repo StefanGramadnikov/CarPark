@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Ad from './AdBox/Ad';
 import {loadAds} from '../../controllers/CarAdController';
 import $ from 'jquery'
+
 export default class AdsPage extends Component {
     constructor(props){
         super(props);
