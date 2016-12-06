@@ -23,13 +23,15 @@ export default class Layout extends React.Component {
         }
     }
     render() {
-        return (<div>
+        return (<div className="wrapper">
                 <header className="navbar navbar-default">
                         <Navigation loggedIn={this.state.loggedIn} username={this.state.username} />
                 </header>
                 <div className="container">{this.props.children}</div>
                 <footer className="footer">
-                    <p>This is our app footer.(C)</p>
+                    <div className="container">
+                        <p className="text-muted">This is our app footer.(C)</p>
+                    </div>
                 </footer>
             </div>
         );
