@@ -69,14 +69,16 @@ function uploadFileToKinvey(data) {
         data: JSON.stringify(data)
     };
 
-    return $.ajax(request)
+    return $.ajax(request);
 }
 
 function uploadFileToGoogle(data, file) {
+
     let innerH = data._requiredHeaders;
-    innerH['Content-Type']= file.type
-    innerH['Content-Length']= file.mimeSize
+    innerH['Content-Type']= file.type;
+    innerH['Content-Length']= file.mimeSize;
     let uploadURL = data.uploadURL;
+
     let request = {
         method: 'PUT',
         url: uploadURL,
@@ -85,6 +87,7 @@ function uploadFileToGoogle(data, file) {
         data: file
     };
 
+    return $.ajax(request);
 }
 
 export {get, post, update, uploadFileToKinvey, uploadFileToGoogle};

@@ -1,11 +1,12 @@
 import * as requester from '../services/AjaxService';
 import * as notificator from '../services/NotificationBarService';
-import * as fileService from '../services/FileService';
 
 function addCar(formData, callback) {
 
+    let saveAdWithoutPicture = true;
     if ('picture' in formData && formData['picture'] !== '') {
 
+        saveAdWithoutPicture = false;
         let picture = formData['picture'];
 
         let metaData = {
@@ -17,9 +18,9 @@ function addCar(formData, callback) {
         let kinveyResponse = requester.uploadFileToKinvey(metaData).then(
             function (response) {
                 console.log(response);
-                console.log(response._id);
-
-                formData['picture'] = response._id;
+                formData.picture = response._id;
+                requester.post('appdata', 'ads', formData, 'kinvey')
+                    .then((response) => addSuccess(response)).catch((err)=>addUnsuccess(err));
             }
         );
         let googleResponse = kinveyResponse
@@ -28,11 +29,13 @@ function addCar(formData, callback) {
         googleResponse.then((response) => addSuccess(response))
             .catch((err)=>addUnsuccess(err));
 
-        delete formData.picture;
     }
 
-    requester.post('appdata', 'ads', formData, 'kinvey')
-        .then((response) => addSuccess(response)).catch((err)=>addUnsuccess(err));
+    if(saveAdWithoutPicture) {
+        delete formData.picture;
+        requester.post('appdata', 'ads', formData, 'kinvey')
+            .then((response) => addSuccess(response)).catch((err)=>addUnsuccess(err));
+    }
 
     function addSuccess(){
         notificator.showNotification('success', 'Add created !');
@@ -43,11 +46,11 @@ function addCar(formData, callback) {
         notificator.showError(err);
         callback(false);
     }
+}
 
-
-
-}function loadAds(callback) {
+function loadAds(callback) {
     //Load all ads from Kinvey
     requester.get('appdata', 'ads', 'kinvey').then(callback);
 }
+
 export { addCar, loadAds }

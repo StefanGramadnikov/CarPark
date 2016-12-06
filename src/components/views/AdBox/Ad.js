@@ -11,7 +11,6 @@ export default class Ad extends Component {
         this.state.desc = asd.substr(0, 100) + '...';
     }
     render() {
-        console.log(this.props.picture)
         return (
             <div className="col-sm-6 col-md-4 ad">
                 <div className="thumbnail">
