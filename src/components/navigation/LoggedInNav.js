@@ -6,15 +6,22 @@ import React, { Component } from 'react';
 import {Link} from 'react-router';
 class LoggedInNav extends Component{
     render() {
-        return (
-            <div className="nav navbar-nav" >
-                <Link to="/" className="navbar-brand">Home</Link>
-                <Link to="/ads" className="navbar-brand">Ads</Link>
-                <Link to="/myAds" className="navbar-brand">My ads</Link>
-                <Link to="/ads/create" className="navbar-brand">New Ad</Link>
-                <Link to="/logout" className="navbar-brand">Logout</Link>
-                <span className="greeting">Welcome, {this.props.username}</span>
-            </div>)
+        return (<div className="container" >
+            <div className="navbar-header">
+                <a href="/" className="navbar-brand">Car Park</a>
+            </div>
+            <div className="navbar-collapse" id="navbar">
+                <ul className="nav navbar-nav">
+                    <li><Link to="/ads">Ads</Link></li>
+                    <li><Link to="/myAds">My ads</Link></li>
+                    <li><Link to="/ads/create">New ad</Link></li>
+                    <li><Link to="/logout">Logout</Link></li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                    <li><a className="greeting">Welcome, {this.props.username}</a></li>
+                </ul>
+            </div>
+        </div>)
     }
 }
 export default LoggedInNav;

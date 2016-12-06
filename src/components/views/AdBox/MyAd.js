@@ -35,15 +35,16 @@ export default class MyAd extends Component {
         return (
             <div className="col-sm-6 col-md-4 ad">
                 <div className="thumbnail">
+                    <img className="img" src={this.state.picture} alt="picture"/>
                     <img src={this.state.picture} alt="Car"/>
                     <div className="caption">
                         <h3>{this.props.title}</h3>
                         <p>{this.state.desc}</p>
-                        <p>
-                            <Link to={"/ads/" + this.props.adId} className="btn btn-primary">Preview</Link>
-                            <Link to={"/edit/" + this.props.adId} className="btn btn-default">Edit</Link>
+                        <div className="btn-group">
+                            <Link to={"/ads/" + this.props.adId} className="btn btn-default">Preview</Link>
+                            <Link to={"/edit/" + this.props.adId} className="btn btn-success">Edit</Link>
                             <button className="btn btn-danger" onClick={() => this.deleteAd(this.props.adId)}>Delete ad</button>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>

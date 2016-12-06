@@ -35,3 +35,6 @@ main > section {
     display: none;
     padding: 20px 5px;
 }
+.greeting{
+    font-size: 20px;
+}
