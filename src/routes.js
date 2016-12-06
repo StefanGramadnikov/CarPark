@@ -10,15 +10,14 @@ import CarAdForm from './components/forms/CarAdForm';
 import NotFoundPage from './components/views/NotFoundPage/NotFoundPage';
 
 const routes = (
-    <Route path="/" handler={Layout}>
-        <IndexRoute handler={IndexPage}/>
-        <Route path="register" handler={RegistrationForm}/>
-        <Route path="login" handler={LoginForm}/>
-        <Route path="logout" handler={LogoutPage}/>
-            <Route path="ads" handler={AdsPage}>
-                <Route path="create" handler={CarAdForm}/>
-            </Route>
-        <Route path="*" handler={NotFoundPage}/>
+    <Route path="/" component={Layout}>
+        <IndexRoute component={IndexPage}/>
+        <Route path="register" component={RegistrationForm}/>
+        <Route path="login" component={LoginForm}/>
+        <Route path="logout" component={LogoutPage}/>
+            <Route path="ads" component={AdsPage}/>
+                <Route path="ads/create" component={CarAdForm}/>
+        <Route path="*" component={NotFoundPage}/>
     </Route>
 );
 

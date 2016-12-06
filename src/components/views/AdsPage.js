@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Ad from './AdBox/Ad';
 import {loadAds} from '../../controllers/CarAdController';
-
+import $ from 'jquery'
 export default class CatalogPage extends Component {
     constructor(props){
         super(props);
@@ -13,6 +13,14 @@ export default class CatalogPage extends Component {
     }
     onLoadSuccess(response){
         this.setState({ads: response});
+        //Make all divs same height
+        $( document ).ready(function() {
+            var heights = $(".thumbnail").map(function() {
+                    return $(this).height();
+                }).get(),
+                maxHeight = Math.max.apply(null, heights);
+            $(".thumbnail").height(maxHeight);
+        });
     }
     render() {
         return (
