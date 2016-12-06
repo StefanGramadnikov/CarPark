@@ -13,6 +13,7 @@ function makeAuth(type) {
         default: break;
     }
 }
+
 function get(module, uri, auth) {
     const kinveyLoginUrl = kinveyBaseUrl + module + "/" + kinveyAppKey + "/" + uri;
     const kinveyAuthHeaders = makeAuth(auth);
@@ -23,6 +24,7 @@ function get(module, uri, auth) {
         headers: kinveyAuthHeaders
     });
 }
+
 function post(module, uri, data, auth) {
     const kinveyLoginUrl = kinveyBaseUrl + module + "/" + kinveyAppKey + "/" + uri;
     const kinveyAuthHeaders = makeAuth(auth);
@@ -38,6 +40,7 @@ function post(module, uri, data, auth) {
     }
     return $.ajax(request);
 }
+
 function update(module, uri, data, auth) {
     const kinveyLoginUrl = kinveyBaseUrl + module + "/" + kinveyAppKey + "/" + uri;
     const kinveyAuthHeaders = makeAuth(auth);

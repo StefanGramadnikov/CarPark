@@ -2,9 +2,13 @@
 
 import React, {Component} from 'react';
 import {addCar} from '../../controllers/CarAdController';
+import {loadAd} from '../../controllers/CarAdController';
+import {updateCar} from '../../controllers/CarAdController';
+import {buildObjectForPrepopulation} from '../../controllers/CarAdController';
 import * as validator from '../../services/ValidatorService';
 import * as authenticator from '../../services/AuthValidationService';
 class CarAdForm extends Component {
+
     constructor(props) {
         super(props);
         this.loggedIn = this.props.loggedIn;
@@ -15,8 +19,20 @@ class CarAdForm extends Component {
             price: false,
             title: false,
             description: false
-        } };
+        }};
         this.bindEventHandlers();
+    }
+
+    componentDidMount() {
+        if ('adId' in this.props.routeParams) {
+            this.state._id =  this.props.routeParams['adId'];
+            loadAd(this.state._id, this.onLoadSuccess);
+        }
+    }
+
+    onLoadSuccess(response) {
+        let carAd = buildObjectForPrepopulation(response);
+        this.setState(carAd);
     }
 
     bindEventHandlers() {
@@ -26,6 +42,7 @@ class CarAdForm extends Component {
         this.onNewCarAdd = this.onNewCarAdd.bind(this);
         this.onBlurHandler = this.onBlurHandler.bind(this);
         this.onPictureSelect = this.onPictureSelect.bind(this);
+        this.onLoadSuccess = this.onLoadSuccess.bind(this);
     }
 
     onChangeHandler(event) {
@@ -60,17 +77,17 @@ class CarAdForm extends Component {
         delete formData.submitDisabled;
 
         this.setState({ submitDisabled: true });
-        addCar(formData, this.onNewCarAdd);
+        if ('_id' in this.state) {
+            updateCar(formData, this.onNewCarAdd)
+        } else {
+            addCar(formData, this.onNewCarAdd);
+        }
     }
 
     onNewCarAdd(response) {
         if (response === true) {
-            // Navigate to index page
-            // Show flash message
             this.context.router.push('/ads');
         } else {
-            // Something went wrong, let the user try again
-            // Show flash message
             this.setState({ submitDisabled: false });
         }
     }

@@ -20,32 +20,37 @@ function addCar(formData, callback) {
                 console.log(response);
                 formData.picture = response._id;
                 requester.post('appdata', 'ads', formData, 'kinvey')
-                    .then((response) => addSuccess(response)).catch((err)=>addUnsuccess(err));
+                    .then((response) => onRequestSuccess('Image uploaded to kinvey',response)).catch((err)=>onRequestError(err, callback));
             }
         );
         let googleResponse = kinveyResponse
-            .then((response) => requester.uploadFileToGoogle(response).catch((err) => addUnsuccess(err)));
+            .then((response) => requester.uploadFileToGoogle(response).catch((err) => onRequestError(err)));
 
-        googleResponse.then((response) => addSuccess(response))
-            .catch((err)=>addUnsuccess(err));
+        googleResponse.then((response) => onRequestSuccess('Image uploaded', response))
+            .catch((err)=>onRequestError(err));
 
     }
 
     if(saveAdWithoutPicture) {
         delete formData.picture;
         requester.post('appdata', 'ads', formData, 'kinvey')
-            .then((response) => addSuccess(response)).catch((err)=>addUnsuccess(err));
+            .then((response) => onRequestSuccess('Car ad created', callback)).catch((err)=>onRequestError(err, callback));
     }
+}
 
-    function addSuccess(){
-        notificator.showNotification('success', 'Add created !');
-        callback(true);
-    }
+function updateCar(formData, callback) {
+    requester.update('appdata', 'ads/' + formData._id, formData, 'kinvey')
+        .then((response) => onRequestSuccess('Car ad updated', callback)).catch((err)=>onRequestError(err, callback));
+}
 
-    function addUnsuccess(err) {
-        notificator.showError(err);
-        callback(false);
-    }
+function onRequestSuccess(message, callback){
+    notificator.showNotification('success', message);
+    callback(true);
+}
+
+function onRequestError(message, callback) {
+    notificator.showError(message);
+    callback(false);
 }
 
 function loadAds(callback) {
@@ -53,4 +58,24 @@ function loadAds(callback) {
     requester.get('appdata', 'ads', 'kinvey').then(callback);
 }
 
-export { addCar, loadAds }
+function loadAd(adId, callback) {
+    requester.get('appdata', 'ads/' + adId, 'kinvey').then(callback).catch();
+}
+
+function buildObjectForPrepopulation(data) {
+    return { make: data.make, model: data.model,
+            year: data.year, price: data.price,
+            title: data.title, description: data.description,
+            submitDisabled: false, validatedFormFields: {
+                make: true,
+                model: true,
+                year: true,
+                price: true,
+                title: true,
+                description: true
+            }
+    };
+
+}
+
+export {addCar, loadAds, loadAd, buildObjectForPrepopulation, updateCar}
