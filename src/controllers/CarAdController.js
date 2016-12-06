@@ -3,20 +3,79 @@ import * as notificator from '../services/NotificationBarService';
 
 function addCar(formData, callback) {
 
-    requester.post('appdata', 'ads', formData, 'kinvey')
-        .then((response) => addSuccess(response)).catch((err)=>addUnsuccess(err));
+    let saveAdWithoutPicture = true;
+    if ('picture' in formData && formData['picture'] !== '') {
 
-    function addSuccess(){
-        notificator.showNotification('success', 'Add created !');
-        callback(true);
+        saveAdWithoutPicture = false;
+        let picture = formData['picture'];
+
+        let metaData = {
+            '_filename': picture.name,
+            'size': picture.size,
+            'type': picture.type
+        };
+
+        let kinveyResponse = requester.uploadFileToKinvey(metaData).then(
+            function (response) {
+                console.log(response);
+                formData.picture = response._id;
+                requester.post('appdata', 'ads', formData, 'kinvey')
+                    .then((response) => onRequestSuccess('Image uploaded to kinvey',response)).catch((err)=>onRequestError(err, callback));
+            }
+        );
+        let googleResponse = kinveyResponse
+            .then((response) => requester.uploadFileToGoogle(response).catch((err) => onRequestError(err)));
+
+        googleResponse.then((response) => onRequestSuccess('Image uploaded', response))
+            .catch((err)=>onRequestError(err));
+
     }
 
-    function addUnsuccess(err) {
-        notificator.showError(err);
-        callback(false);
+    if(saveAdWithoutPicture) {
+        delete formData.picture;
+        requester.post('appdata', 'ads', formData, 'kinvey')
+            .then((response) => onRequestSuccess('Car ad created', callback)).catch((err)=>onRequestError(err, callback));
     }
-}function loadAds(callback) {
+}
+
+function updateCar(formData, callback) {
+    requester.update('appdata', 'ads/' + formData._id, formData, 'kinvey')
+        .then((response) => onRequestSuccess('Car ad updated', callback)).catch((err)=>onRequestError(err, callback));
+}
+
+function onRequestSuccess(message, callback){
+    notificator.showNotification('success', message);
+    callback(true);
+}
+
+function onRequestError(message, callback) {
+    notificator.showError(message);
+    callback(false);
+}
+
+function loadAds(callback) {
     //Load all ads from Kinvey
     requester.get('appdata', 'ads', 'kinvey').then(callback);
 }
-export { addCar, loadAds }
+
+function loadAd(adId, callback) {
+    requester.get('appdata', 'ads/' + adId, 'kinvey').then(callback).catch();
+}
+
+function buildObjectForPrepopulation(data) {
+    return { make: data.make, model: data.model,
+            year: data.year, price: data.price,
+            title: data.title, description: data.description,
+            submitDisabled: false, validatedFormFields: {
+                make: true,
+                model: true,
+                year: true,
+                price: true,
+                title: true,
+                description: true
+            }
+    };
+
+}
+
+export {addCar, loadAds, loadAd, buildObjectForPrepopulation, updateCar}
