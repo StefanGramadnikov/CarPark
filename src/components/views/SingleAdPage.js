@@ -13,7 +13,7 @@ export default class AdsPage extends Component {
         }
     }
     onLoadSuccess(response){
-        if(response.picture == ''){
+        if(response.picture === ''){
             response.picture = 'http://www.usa.philips.com/c-dam/b2c/category-pages/lighting/car-lights/master/footer/nafta-car.png'
         }
         this.setState({ad: response});
@@ -22,7 +22,7 @@ export default class AdsPage extends Component {
         return (
             <div className="container container-table ">
                 <div className="thumbnail">
-                    <img src={this.state.ad.picture} alt="picture" className="img-responsive"/>
+                    <img src={this.state.ad.picture} alt="Car" className="img-responsive"/>
                 </div>
                 <div className="caption-full">
                     <h4 className="pull-right"><strong className="bg-success">${this.state.ad.price}</strong></h4>
