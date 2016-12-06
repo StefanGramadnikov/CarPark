@@ -3,10 +3,11 @@
 import React, {Component} from 'react';
 import {addCar} from '../../controllers/CarAdController';
 import * as validator from '../../services/ValidatorService';
-
-class RegistrationForm extends Component {
+import * as authenticator from '../../services/AuthValidationService';
+class CarAdForm extends Component {
     constructor(props) {
         super(props);
+        this.loggedIn = this.props.loggedIn;
         this.state = { make: '', model: '', year: '', price: '', picture: '', title: '', description: '', submitDisabled: true, validatedFormFields: {
             make: false,
             model: false,
@@ -68,8 +69,9 @@ class RegistrationForm extends Component {
     }
 
     render() {
+        authenticator.authenticate();
         return (
-            <form className="" onSubmit={this.onSubmitHandler}>
+            <form onSubmit={this.onSubmitHandler} >
                 <div id="title" className="form-group">
                     <label>Title: </label>
                     <input
@@ -156,7 +158,7 @@ class RegistrationForm extends Component {
         );
     }
 }
-RegistrationForm.contextTypes = {
+CarAdForm.contextTypes = {
     router: React.PropTypes.object
 };
-export default RegistrationForm;
+export default CarAdForm;
