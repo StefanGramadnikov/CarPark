@@ -27,7 +27,7 @@ export default class MyAdsPage extends Component {
             <div className="row">
                 {this.state.ads.map((ad, i) =>{if(sessionStorage.getItem('userId') == ad._acl.creator){return <MyAd key={i} title={ad.title} make={ad.make} description={ad.description}
                                                            model = {ad.model} year = {ad.year}
-                                                           price = {ad.price} adId ={ad._id}/> }})}
+                                                           price = {ad.price} adId ={ad._id} picture={ad.picture}/> }})}
             </div>
         );
     }
