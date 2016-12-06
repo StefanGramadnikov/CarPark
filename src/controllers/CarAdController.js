@@ -14,13 +14,19 @@ function addCar(formData, callback) {
             'type': picture.type
         };
 
-        let kinveyResponse = requester.uploadFileToKinvey(metaData);
+        let kinveyResponse = requester.uploadFileToKinvey(metaData).then(
+            function (response) {
+                console.log(response);
+                console.log(response._id);
+
+                formData['picture'] = response._id;
+            }
+        );
         let googleResponse = kinveyResponse
             .then((response) => requester.uploadFileToGoogle(response).catch((err) => addUnsuccess(err)));
 
         googleResponse.then((response) => addSuccess(response))
             .catch((err)=>addUnsuccess(err));
-
 
         delete formData.picture;
     }

@@ -56,11 +56,9 @@ function uploadFileToKinvey(data) {
     const kinveyLoginUrl = kinveyBaseUrl + "blob/" + kinveyAppKey;
     const kinveyAuthHeaders = makeAuth('kinvey');
 
-    console.log(kinveyAuthHeaders);
-
     let requestHeaders = {
-        'Authorization': "Basic " + btoa("Go6o:qweqweqwe"),
-        'Content-Type': data.mimeType,
+        'Authorization': "Basic " + btoa("upload:upload"),
+        'Content-Type': 'application/json',
         'X-Kinvey-Content-Type': data.mimeType
     };
 
@@ -71,18 +69,22 @@ function uploadFileToKinvey(data) {
         data: JSON.stringify(data)
     };
 
-    $.ajax(request).then(
-        function (response) {
-            console.log(response);
-        }).catch(
-        function (error) {
-            console.log(error);
-        }
-    );
+    return $.ajax(request)
 }
 
-function uploadFileToGoogle(data) {
-    console.log(data);
+function uploadFileToGoogle(data, file) {
+    let innerH = data._requiredHeaders;
+    innerH['Content-Type']= file.type
+    innerH['Content-Length']= file.mimeSize
+    let uploadURL = data.uploadURL;
+    let request = {
+        method: 'PUT',
+        url: uploadURL,
+        headers: innerH,
+        processData: false,
+        data: file
+    };
+
 }
 
 export {get, post, update, uploadFileToKinvey, uploadFileToGoogle};

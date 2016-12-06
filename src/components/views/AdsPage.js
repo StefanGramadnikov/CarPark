@@ -19,7 +19,7 @@ export default class CatalogPage extends Component {
             <div className="row">
                 {this.state.ads.map((ad, i) => {return <Ad key={i} title={ad.title} make={ad.make} description={ad.description}
                                                              model={ad.model} year={ad.year}
-                                                             price={ad.price} adId={ad._id}/> })}
+                                                             price={ad.price} picture={ad.picture} adId={ad._id}/> })}
             </div>
         );
     }
