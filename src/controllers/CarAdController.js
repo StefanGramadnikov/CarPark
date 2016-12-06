@@ -71,6 +71,7 @@ function buildObjectForPrepopulation(data) {
     return { make: data.make, model: data.model,
             year: data.year, price: data.price,
             title: data.title, description: data.description,
+            picture: data.picture,
             submitDisabled: false, validatedFormFields: {
                 make: true,
                 model: true,

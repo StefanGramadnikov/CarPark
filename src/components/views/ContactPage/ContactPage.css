@@ -1,0 +1,29 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+
+#jumbotron {
+    background-color:#339966;
+    margin-top:2%;
+    color:white;
+}
+
+h3 {
+    line-height:20%
+}
+
+i {
+    line-height:6%;
+    color:#339966
+}
+
+.h2 {
+    margin-top:-2%
+}
+
+.info {
+    margin-top:6%;
+    line-height:35%
+}
+
+iframe {
+    border:0
+}
