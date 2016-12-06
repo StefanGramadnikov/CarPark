@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import observer from '../../services/Observer'
 import * as validator from '../../services/ValidatorService';
-import {login} from '../../controllers/UserController'
+import {login} from '../../controllers/UserController';
 class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = { username: '', password: '', submitDisabled: true, validatedFormFields: {
             username: false,
-            password: false} }
+            password: false} };
         this.bindEventHandlers();
     }
 
@@ -23,10 +23,10 @@ class LoginForm extends Component {
         validator.buildMessage(event.target.name, errorMessage);
     }
     onChangeHandler(event) {
-        event.preventDefault()
+        event.preventDefault();
         let newState = {};
         newState[event.target.name] = event.target.value;
-        this.setState(newState)
+        this.setState(newState);
         let isFieldValid = validator.validate(event.target.name, event.target.value) === null;
         this.state.validatedFormFields[event.target.name] = isFieldValid;
 
@@ -44,7 +44,7 @@ class LoginForm extends Component {
             this.context.router.push('/');
         }
         this.setState({ submitDisabled: false });
-        observer.onSessionUpdate()
+        observer.onSessionUpdate();
     }
 
     render() {

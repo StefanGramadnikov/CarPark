@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './Ad.css'
-import {Link} from 'react-router'
 export default class Ad extends Component {
     constructor(props) {
         super(props);

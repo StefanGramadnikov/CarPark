@@ -57,7 +57,6 @@ function update(module, uri, data, auth) {
 
 function uploadFileToKinvey(data) {
     const kinveyLoginUrl = kinveyBaseUrl + "blob/" + kinveyAppKey;
-    const kinveyAuthHeaders = makeAuth('kinvey');
 
     let requestHeaders = {
         'Authorization': "Basic " + btoa("upload:upload"),

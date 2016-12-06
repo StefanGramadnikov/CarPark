@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import MyAd from './AdBox/MyAd';
 import {loadAds} from '../../controllers/CarAdController';
-import $ from 'jquery'
+import $ from 'jquery';
 export default class MyAdsPage extends Component {
     constructor(props){
         super(props);
@@ -25,9 +25,18 @@ export default class MyAdsPage extends Component {
     render() {
         return (
             <div className="row">
-                {this.state.ads.map((ad, i) =>{if(sessionStorage.getItem('userId') == ad._acl.creator){return <MyAd key={i} title={ad.title} make={ad.make} description={ad.description}
-                                                           model = {ad.model} year = {ad.year}
-                                                           price = {ad.price} adId ={ad._id}/> }})}
+                {
+                    this.state.ads.map((ad, i) => {
+                        if(sessionStorage.getItem('userId') === ad._acl.creator)
+                        {
+                            return <MyAd key={i} title={ad.title} make={ad.make}
+                                         description={ad.description}
+                                         model={ad.model} year={ad.year}
+                                         price={ad.price} adId={ad._id}
+                                    />
+                        }
+                    })
+                }
             </div>
         );
     }
