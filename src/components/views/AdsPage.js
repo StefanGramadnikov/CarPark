@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Ad from './AdBox/Ad';
 import {loadAds} from '../../controllers/CarAdController';
 import $ from 'jquery'
+import * as authenticator from '../../services/AuthValidationService';
 
 export default class AdsPage extends Component {
     constructor(props){
@@ -24,6 +25,7 @@ export default class AdsPage extends Component {
         });
     }
     render() {
+        authenticator.authenticate();
         return (
             <div className="row">
                 {this.state.ads.map((ad, i) => {return <Ad key={i} title={ad.title} make={ad.make} description={ad.description}

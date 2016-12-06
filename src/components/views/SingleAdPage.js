@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {loadAd} from '../../controllers/CarAdController';
 import {Link} from 'react-router';
+import * as authenticator from '../../services/AuthValidationService';
 
 export default class SingleAdPage extends Component {
     constructor(props){
@@ -21,6 +22,7 @@ export default class SingleAdPage extends Component {
         this.setState({ad: response});
     }
     render() {
+        authenticator.authenticate();
         return (
             <div className="container container-table ">
                 <div className="thumbnail">

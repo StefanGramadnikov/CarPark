@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import MyAd from './AdBox/MyAd';
 import {loadAds} from '../../controllers/CarAdController';
 import $ from 'jquery';
+import * as authenticator from '../../services/AuthValidationService';
 export default class MyAdsPage extends Component {
     constructor(props){
         super(props);
@@ -23,6 +24,7 @@ export default class MyAdsPage extends Component {
         });
     }
     render() {
+        authenticator.authenticate();
         return (
             <div className="row">
                 {

@@ -25,7 +25,7 @@ export default class HomePage extends Component {
                         <h1 className="display-3">Car Park</h1>
                         <p>
                             Welcome to
-                            <stron>Car Park</stron>
+                            <stron> Car Park</stron>
                             , we will sell your car for you!
                             If you have a car for sale or looking for new car, please register and proceed.
                         </p>
